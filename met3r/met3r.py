@@ -67,6 +67,13 @@ def convert_to_buffer(module: torch.nn.Module, persistent: bool = True):
         delattr(module, name)
         module.register_buffer(name, value, persistent=persistent)
 
+
+def load_hub_model(repo_or_dir: Union[str, Path], model_name: str, **kwargs):
+    repo_or_dir = Path(repo_or_dir).expanduser()
+    if repo_or_dir.exists() and repo_or_dir.is_dir():
+        return torch.hub.load(str(repo_or_dir), model_name, source="local", **kwargs)
+    return torch.hub.load(str(repo_or_dir), model_name, **kwargs)
+
 backbone_to_weights = {
     "mast3r": "naver/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric",
     "dust3r": "naver/DUSt3R_ViTLarge_BaseDecoder_512_dpt"
@@ -116,7 +123,7 @@ class MEt3R(Module):
                 if use_norm is None:
                     raise ValueError("When using `FeatUp`, specify `use_norm` as either `True` or `False`. Currently it is set to `None`")
                 
-                featup = torch.hub.load(feature_backbone_weights, feature_backbone, use_norm=use_norm)
+                featup = load_hub_model(feature_backbone_weights, feature_backbone, use_norm=use_norm)
                 self.feature_model = featup.model
                 if upsampler == "featup":
                     self.upsampler_model = featup.upsampler
@@ -126,7 +133,7 @@ class MEt3R(Module):
                 
             else:
                 self.norm = Identity()
-                self.feature_model = torch.hub.load(feature_backbone_weights, feature_backbone)
+                self.feature_model = load_hub_model(feature_backbone_weights, feature_backbone)
             
             if freeze:
                 freeze_model(self.feature_model) 

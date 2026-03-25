@@ -65,8 +65,8 @@ setup(
                 "timm==0.4.12",
                 "huggingface-hub[torch]>=0.22",
                 "lpips",
-                "featup@git+https://github.com/mhamilton723/FeatUp",
-                "pytorch3d@git+https://github.com/facebookresearch/pytorch3d.git",
+                # "featup@git+https://github.com/mhamilton723/FeatUp",
+                # "pytorch3d@git+https://github.com/facebookresearch/pytorch3d.git",
         ],
 
         classifiers=[
