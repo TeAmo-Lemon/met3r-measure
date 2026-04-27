@@ -48,7 +48,7 @@ get_cached_line() {
 	awk -F '\t' -v rd="$render_dir" 'NR>1 && $10==rd && $5=="success" && $9=="success" {line=$0} END {if (line!="") print line}' "$LATEST_FILE"
 }
 
-mapfile -t RENDER_DIRS < <(find "$ROOT_DIR" -type d -path '*/train/ours_*/renders' | sort)
+mapfile -t RENDER_DIRS < <(find "$ROOT_DIR" -type d -path '*/train/ours_*/renders' | sort -V)
 
 if [[ ${#RENDER_DIRS[@]} -eq 0 ]]; then
 	echo "[WARN] No directories matched pattern */train/ours_*/renders under: $ROOT_DIR"
