@@ -163,7 +163,7 @@ def run_batch(batch_root_dir: Path, args: argparse.Namespace, metric: MEt3R, dev
     # 加载已存在的成功记录
     cached_records = get_cached_records(results_dir)
 
-    out_file = results_dir / f"met3r_batch_results_{datetime.now():%Y%m%d_%H%M%S}.tsv"
+    out_file = results_dir / f"{batch_root_dir.name}_{datetime.now():%Y%m%d_%H%M%S}.tsv"
     
     print(f"[INFO] Batch root directory: {batch_root_dir}")
     print(f"[INFO] Found {len(render_dirs)} render directories ({len(cached_records)} may be skipped)")
