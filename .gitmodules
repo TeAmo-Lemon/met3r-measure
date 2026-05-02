@@ -1,0 +1,3 @@
+[submodule "third_party/FeatUp"]
+	path = third_party/FeatUp
+	url = https://github.com/mhamilton723/FeatUp.git
