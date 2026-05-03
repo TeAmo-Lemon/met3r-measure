@@ -129,10 +129,10 @@ def collect_render_dirs(batch_root_dir: Path) -> list[Path]:
 
 def get_cached_records(results_dir: Path) -> dict[str, dict]:
     """获取最新 TSV 中已经成功的记录"""
-    tsvs = glob.glob(str(results_dir / "met3r_batch_results_*.tsv"))
+    tsvs = glob.glob(str(results_dir / "*.tsv"))
     if not tsvs:
         return {}
-    
+
     latest_tsv = Path(max(tsvs, key=os.path.getmtime))
     print(f"[INFO] Found previous results: {latest_tsv.name}, loading successful records...")
     
